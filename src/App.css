@@ -7,16 +7,3 @@
 	display: flex;
 	flex-direction: column;
 }
-
-.recipes {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	margin-top: 50px;
-}
-.fade {
-	margin: 0px;
-	padding: 0px;
-	border-width: 0px;
-	border: none;
-}

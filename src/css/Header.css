@@ -8,30 +8,21 @@
 }
 
 .header {
-	background-color: #b12a5b;
+	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 	padding: 20px;
+	letter-spacing: 4px;
 	color: white;
-	font-weight: 700;
+	font-size: 1.5rem;
+	font-weight: 400;
 	text-align: center;
+	cursor: pointer;
 }
 
 .menu {
 	display: flex;
-	padding: 20px;
-	color: white;
-	background-color: #b12a5b;
-}
-
-.menu a {
-	text-decoration: none;
-	color: white;
-
-	padding: 0 10px;
-	border: black;
-}
-
-.menu a:hover {
-	background-color: thistle;
+	padding: 15px;
+	color: black;
+	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 .search-form {
@@ -47,6 +38,7 @@ input:focus {
 	width: 92%;
 	border: none;
 	padding: 15px;
+	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 }
 .search-bar::placeholder {
 	font-family: "Roboto", sans-serif;
@@ -55,9 +47,70 @@ input:focus {
 }
 
 .search-button {
+	font-size: 1rem;
 	color: white;
 	min-width: 8%;
 	cursor: pointer;
-	background: lightcoral;
+	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 	border: none;
+}
+
+#dropdownMenu {
+	letter-spacing: 0.5px;
+	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+	color: black;
+}
+.dropdown-submenu {
+	position: relative;
+}
+.dropdown-item a {
+	color: black;
+}
+
+.dropdown-item {
+	cursor: pointer;
+}
+
+.dropdown-submenu > .dropdown-menu {
+	top: 0;
+	left: 100%;
+	margin-top: -6px;
+	margin-left: -1px;
+	-webkit-border-radius: 0 6px 6px 6px;
+	-moz-border-radius: 0 6px 6px;
+	border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+	display: block;
+}
+
+.dropdown-submenu > a:after {
+	display: block;
+	content: " ";
+	float: right;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 5px 0 5px 5px;
+	border-left-color: #ccc;
+	margin-top: 5px;
+	margin-right: -10px;
+}
+
+.dropdown-submenu:hover > a:after {
+	border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+	float: none;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu {
+	left: -100%;
+	margin-left: 10px;
+	-webkit-border-radius: 6px 0 6px 6px;
+	-moz-border-radius: 6px 0 6px 6px;
+	border-radius: 6px 0 6px 6px;
 }

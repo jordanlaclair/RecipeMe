@@ -32,6 +32,10 @@
 	text-align: center;
 }
 
+.recipe__title {
+	margin: 25px 30px 5px 30px;
+}
+
 .image {
 	border-radius: 35%;
 	width: 10rem;

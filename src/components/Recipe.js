@@ -1,8 +1,8 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import "../css/Recipe.css";
 
-import "../css/recipes.css";
-const Recipes = (props) => {
+const Recipe = (props) => {
 	return (
 		<div className="recipe">
 			<h1 className="recipe__title">{props.title}</h1>
@@ -18,4 +18,4 @@ const Recipes = (props) => {
 	);
 };
 
-export default Recipes;
+export default Recipe;

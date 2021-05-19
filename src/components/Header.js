@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Header.css";
 
-function Header({ query, setQuery }) {
+function Header({ setQuery, recipes, setRecipes, setState }) {
+	/* useEffect(() => {
+		console.log("update state");
+	}, [recipes]); */
+
 	const [search, setSearch] = useState("");
-	//initial search is set to chicken
 
 	const updateSearch = (e) => {
 		setSearch(e.target.value);
@@ -11,13 +14,48 @@ function Header({ query, setQuery }) {
 
 	const submitSearch = (e) => {
 		e.preventDefault();
+
 		setQuery(search);
+
 		setSearch("");
+	};
+
+	const sortByIncreasingCalories = () => {
+		setState(["1"]);
+		let sorted = recipes.sort(function (a, b) {
+			return a.recipe.calories - b.recipe.calories;
+		});
+		setRecipes(sorted);
+		console.log(sorted);
+	};
+
+	const sortByDecreasingCalories = () => {
+		setState(["2"]);
+		let sorted = recipes.sort(function (a, b) {
+			return b.recipe.calories - a.recipe.calories;
+		});
+
+		setRecipes(sorted);
+		console.log(sorted);
+	};
+
+	const filterCuisine = () => {
+		console.log(recipes);
+		let filtered = recipes.filter(
+			(recipe) => recipe.recipe.cuisineType.length == 1
+		);
+		setRecipes(filtered);
+		console.log(filtered);
 	};
 
 	return (
 		<div className="header_wrapper">
-			<header className="header">RecipeMe &copy;</header>
+			<header
+				onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+				className="header"
+			>
+				RecipeMe
+			</header>
 			<div class="form__wrapper">
 				<form onSubmit={submitSearch} className="search-form">
 					<input
@@ -33,9 +71,89 @@ function Header({ query, setQuery }) {
 				</form>
 			</div>
 			<div className="menu">
-				<a href="#">About</a>
-				<a href="#">About</a>
-				<a href="#">About</a>
+				<div className="dropdown">
+					<button
+						className="btn btn-secondary dropdown-toggle"
+						type="button"
+						id="dropdownMenu"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						Filter
+					</button>
+					<ul
+						className="dropdown-menu multi-level"
+						role="menu"
+						aria-labelledby="dropdownMenu"
+					>
+						<li className="dropdown-submenu">
+							<a className="dropdown-item" tabindex="-1">
+								Calories
+							</a>
+							<ul className="dropdown-menu">
+								<li
+									onClick={sortByIncreasingCalories}
+									className="dropdown-item"
+								>
+									<a className="dropdown-item" tabindex="-1">
+										Lowest Calories
+									</a>
+								</li>
+								<li
+									onClick={sortByDecreasingCalories}
+									className="dropdown-item"
+								>
+									<a className="dropdown-item" tabindex="-1">
+										Highest Calories
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li className="dropdown-divider"></li>
+
+						<li className="dropdown-submenu">
+							<a className="dropdown-item" tabindex="-1">
+								Meal Type
+							</a>
+							<ul className="dropdown-menu">
+								<li className="dropdown-item">
+									<a className="dropdown-item" tabindex="-1">
+										Second level
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li className="dropdown-divider"></li>
+
+						<li className="dropdown-submenu">
+							<a className="dropdown-item" tabindex="-1">
+								Cuisine Type
+							</a>
+							<ul className="dropdown-menu">
+								<li onClick={filterCuisine} className="dropdown-item">
+									<a className="dropdown-item" tabindex="-1">
+										Chinese
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li className="dropdown-divider"></li>
+
+						<li className="dropdown-submenu">
+							<a className="dropdown-item" tabindex="-1">
+								Diet
+							</a>
+							<ul className="dropdown-menu">
+								<li className="dropdown-item">
+									<a className="dropdown-item" tabindex="-1">
+										Second level
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	);
