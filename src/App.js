@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import FilteredRecipes from "./components/FilteredRecipes";
+import NoResults from "./components/NoResults";
 
 export const App = () => {
 	//initial search is set to chicken
@@ -10,12 +11,14 @@ export const App = () => {
 	const [querySearch, setQuerySearch] = useState([]);
 	const [recipes, setRecipes] = useState([]);
 	const [state, setState] = useState([]);
+	const [noResultsFound, setNoResultsFound] = useState(false);
+
 	const APP_ID = "77d597d7";
 	const APP_KEY = "b10c402d8931dffea0b09b47cdbcc688";
-	let endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=15`;
+	let endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
 
 	useEffect(() => {
-		endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=15`;
+		endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
 		getRecipes();
 	}, [query]);
 
@@ -26,6 +29,7 @@ export const App = () => {
 		//console.log(endpoint);
 		const response = await fetch(endpoint);
 		const data = await response.json();
+		data.hits.length === 0 ? setNoResultsFound(true) : setNoResultsFound(false);
 		setQueryResults(data.hits);
 		setQuerySearch(data.hits);
 		setRecipes(data.hits);
@@ -42,9 +46,13 @@ export const App = () => {
 				setRecipes={setRecipes}
 				setState={setState}
 				queryResults={queryResults}
+				setNoResultsFound={setNoResultsFound}
 			/>
-
-			<FilteredRecipes recipes={recipes} />
+			{noResultsFound ? (
+				<NoResults query={query} noResultsFound={noResultsFound} />
+			) : (
+				<FilteredRecipes recipes={recipes} />
+			)}
 		</div>
 	);
 };

@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../css/Header.css";
 
-function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
+function Header({
+	setQuery,
+	recipes,
+	setRecipes,
+	setState,
+	queryResults,
+	setNoResultsFound,
+}) {
 	/* useEffect(() => {
 		console.log("update state");
 	}, [recipes]); */
@@ -79,14 +86,13 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 	};
 
 	const resetFilers = () => {
-		//NOTE: ADD SEPARATE SORT BUTTON FOR LOW CALORIES AND HIGH CALORIES
 		console.log("queryResults in header component", queryResults);
+		setNoResultsFound(false);
 		setRecipes(queryResults);
 		//console.log(recipes);
 	};
 
 	const sortByIncreasingCalories = () => {
-		//NOTE:ADD FUNCTIONALITY IF SORTED ARR LENGTH IS 0 THEN DISPLAY NO RESULTS FOUND
 		setState(["1"]);
 		let sorted = recipes.sort(function (a, b) {
 			return a.recipe.calories - b.recipe.calories;
@@ -105,7 +111,7 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 		//console.log(sorted);
 	};
 
-	const filterMealType = () => {
+	const filterMealType = (mealType) => {
 		console.log(recipes);
 
 		let filtered = (recipes || []).filter((recipe) => {
@@ -113,14 +119,17 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 				recipe.recipe.mealType != undefined &&
 				recipe.recipe.mealType[0] != undefined
 			) {
-				return recipe.recipe.mealType[0] === "breakfast";
+				return recipe.recipe.mealType[0] === mealType;
 			}
 		});
+		if (filtered.length === 0) {
+			setNoResultsFound(true);
+		}
 		setRecipes(filtered);
 		console.log(filtered);
 	};
 
-	const filterCuisineType = () => {
+	const filterCuisineType = (cuisine) => {
 		console.log(recipes);
 
 		let filtered = (recipes || []).filter((recipe) => {
@@ -128,9 +137,12 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 				recipe.recipe.cuisineType != undefined &&
 				recipe.recipe.cuisineType[0] != undefined
 			) {
-				return recipe.recipe.cuisineType[0] === "chinese";
+				return recipe.recipe.cuisineType[0] === cuisine;
 			}
 		});
+		if (filtered.length === 0) {
+			setNoResultsFound(true);
+		}
 		setRecipes(filtered);
 		console.log(filtered);
 	};
@@ -146,6 +158,10 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 				return recipe.recipe.dietLabels[0] == diet;
 			}
 		});
+
+		if (filtered.length === 0) {
+			setNoResultsFound(true);
+		}
 		setRecipes(filtered);
 		console.log(filtered);
 	};
@@ -183,6 +199,28 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 				>
 					Reset Filters
 				</button>
+				<div class="dropdown">
+					<button
+						class="btn btn-secondary dropdown-toggle"
+						type="button"
+						id="dropdownMenu"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						Sort
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+						<button onClick={sortByIncreasingCalories} class="dropdown-item">
+							Lowest Calories
+						</button>
+						<li className="dropdown-divider"></li>
+
+						<button onClick={sortByDecreasingCalories} class="dropdown-item">
+							Highest Calories
+						</button>
+					</div>
+				</div>
 
 				<div className="dropdown">
 					<button
@@ -202,41 +240,53 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 					>
 						<li className="dropdown-submenu">
 							<div className="dropdown-item" tabindex="-1">
-								Calories
-							</div>
-							<ul className="dropdown-menu">
-								<li
-									onClick={sortByIncreasingCalories}
-									className="dropdown-item"
-								>
-									<div className="dropdown-item" tabindex="-1">
-										Lowest Calories
-									</div>
-								</li>
-								<li
-									onClick={sortByDecreasingCalories}
-									className="dropdown-item"
-								>
-									<div className="dropdown-item" tabindex="-1">
-										Highest Calories
-									</div>
-								</li>
-							</ul>
-						</li>
-						<li className="dropdown-divider"></li>
-
-						<li className="dropdown-submenu">
-							<div className="dropdown-item" tabindex="-1">
 								Meal Type
 							</div>
 							<ul className="dropdown-menu">
-								<li onClick={filterMealType} className="dropdown-item">
+								<li
+									onClick={() => {
+										filterMealType(mealType.breakfast);
+									}}
+									className="dropdown-item"
+								>
 									<div className="dropdown-item" tabindex="-1">
 										Breakfast
 									</div>
 								</li>
+
+								<li
+									onClick={() => {
+										filterMealType(mealType.lunchDinner);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Lunch/Dinner
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(mealType.snack);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Snack
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(mealType.teatime);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Tea Time
+									</div>
+								</li>
 							</ul>
 						</li>
+
 						<li className="dropdown-divider"></li>
 
 						<li className="dropdown-submenu">
@@ -244,13 +294,179 @@ function Header({ setQuery, recipes, setRecipes, setState, queryResults }) {
 								Cuisine Type
 							</div>
 							<ul className="dropdown-menu">
-								<li onClick={filterCuisineType} className="dropdown-item">
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.chinese);
+									}}
+									className="dropdown-item"
+								>
 									<div className="dropdown-item" tabindex="-1">
 										Chinese
 									</div>
 								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.asian);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Asian
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.british);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										British
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.caribbean);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Caribbean
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.centralEurope);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Central Europe
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.easternEurope);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Eastern Europe
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.french);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										French
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.indian);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Indian
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.italian);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Italian
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.japanese);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Japanese
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.kosher);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Kosher
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.mediterranean);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Mediterranean
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.mexican);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Mexican
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.middleEastern);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Middle Eastern
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.nordic);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Nordic
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.southAmerican);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										South American
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.southEastAsian);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										South East Asian
+									</div>
+								</li>
 							</ul>
 						</li>
+
 						<li className="dropdown-divider"></li>
 
 						<li className="dropdown-submenu">
