@@ -13,6 +13,7 @@ function FilteredRecipes({ recipes }) {
 					image={recipe.recipe.image}
 					key={uuidv4()}
 					ingredients={recipe.recipe.ingredients}
+					time={recipe.recipe.totalTime}
 				/>
 			))}
 		</div>

@@ -35,7 +35,7 @@ export const App = () => {
 		setRecipes(data.hits);
 		console.log("hits", data.hits);
 	};
-
+	//NOTE: ADD EACH FILTER THE USER ADDS TO HEADER
 	return (
 		<div className="App">
 			<Header

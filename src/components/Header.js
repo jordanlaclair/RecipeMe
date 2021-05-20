@@ -14,7 +14,7 @@ function Header({
 	}, [recipes]); */
 
 	const diet = {
-		balanced: "Calanced",
+		balanced: "Balanced",
 		highFiber: "High-Fiber",
 		highProtein: "High-Protein",
 		lowCarb: "Low-Carb",
@@ -37,7 +37,7 @@ function Header({
 		caribbean: "caribbean",
 		centralEurope: "central europe",
 		chinese: "chinese",
-		easternEurope: "easternEurope",
+		easternEurope: "eastern europe",
 		french: "french",
 		indian: "indian",
 		italian: "italian",
@@ -72,6 +72,7 @@ function Header({
 	};
 
 	const [search, setSearch] = useState("");
+	const [filters, setFilters] = useState([]);
 
 	const updateSearch = (e) => {
 		setSearch(e.target.value);
@@ -85,8 +86,9 @@ function Header({
 		setSearch("");
 	};
 
-	const resetFilers = () => {
+	const resetFilters = () => {
 		console.log("queryResults in header component", queryResults);
+		setFilters([]);
 		setNoResultsFound(false);
 		setRecipes(queryResults);
 		//console.log(recipes);
@@ -126,6 +128,10 @@ function Header({
 			setNoResultsFound(true);
 		}
 		setRecipes(filtered);
+		if (!filters.includes(mealType)) {
+			const updatedFilters = [...filters, mealType];
+			setFilters(updatedFilters);
+		}
 		console.log(filtered);
 	};
 
@@ -144,6 +150,10 @@ function Header({
 			setNoResultsFound(true);
 		}
 		setRecipes(filtered);
+		if (!filters.includes(cuisine)) {
+			const updatedFilters = [...filters, cuisine];
+			setFilters(updatedFilters);
+		}
 		console.log(filtered);
 	};
 
@@ -163,6 +173,10 @@ function Header({
 			setNoResultsFound(true);
 		}
 		setRecipes(filtered);
+		if (!filters.includes(diet)) {
+			const updatedFilters = [...filters, diet];
+			setFilters(updatedFilters);
+		}
 		console.log(filtered);
 	};
 
@@ -192,7 +206,7 @@ function Header({
 				<button
 					type="button"
 					onClick={() => {
-						resetFilers();
+						resetFilters();
 					}}
 					id="resetFilter"
 					class="btn btn-secondary background button-secondary-override"
@@ -282,6 +296,187 @@ function Header({
 								>
 									<div className="dropdown-item" tabindex="-1">
 										Tea Time
+									</div>
+								</li>
+							</ul>
+						</li>
+
+						<li className="dropdown-divider"></li>
+
+						<li className="dropdown-submenu">
+							<div className="dropdown-item" tabindex="-1">
+								Dish Type
+							</div>
+							<ul className="dropdown-menu">
+								<li
+									onClick={() => {
+										filterMealType(dishType.alcoholCockTail);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Alcohol-cocktail
+									</div>
+								</li>
+
+								<li
+									onClick={() => {
+										filterMealType(dishType.biscuitsAndCookies);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Biscuits and Cookies
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.bread);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Bread
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.cereals);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Cereals{" "}
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.condimentsAndSauces);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Condiments and Sauces{" "}
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.drinks);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Drinks
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.dessert);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Desserts
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.egg);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Egg
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.mainCourse);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Main Course
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.omelet);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Omelet
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.pancake);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Pancake
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.preps);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Preps
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.preserve);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Preserve
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.salad);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Salad
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.sandwiches);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Sandwiches
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.soup);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Soup
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(dishType.starter);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Starter
 									</div>
 								</li>
 							</ul>
@@ -537,6 +732,49 @@ function Header({
 							</ul>
 						</li>
 					</ul>
+				</div>
+				<div class="dropdown">
+					<button
+						class="btn btn-secondary dropdown-toggle"
+						type="button"
+						id="dropdownMenu"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						Current Filters
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+						{filters.length === 0 ? (
+							<button
+								style={{ pointerEvents: "none" }}
+								onClick={sortByIncreasingCalories}
+								class="dropdown-item"
+							>
+								None
+							</button>
+						) : (
+							filters.map((filter) => (
+								<div className="dropdown-item-spread">
+									<button
+										style={{ pointerEvents: "none" }}
+										onClick={sortByDecreasingCalories}
+										class="dropdown-item"
+									>
+										{filter}
+									</button>
+									<button
+										style={{ pointerEvents: "auto", cursor: "pointer" }}
+										type="button"
+										class="btn"
+										aria-label="Close"
+									>
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							))
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

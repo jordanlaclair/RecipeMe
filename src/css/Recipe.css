@@ -23,7 +23,7 @@
 }
 .recipe__calories {
 	font-weight: 600;
-	border: 5px solid black;
+	border: 3px solid black;
 	border-left: 0;
 	border-right: 0;
 	border-top: 0;
@@ -32,15 +32,23 @@
 	text-align: center;
 }
 
+.recipe__time {
+	font-weight: 600;
+	width: 100%;
+	border-width: 0px;
+	margin: 7px;
+	text-align: center;
+}
+
 .recipe__title {
 	margin: 25px 30px 5px 30px;
+	text-align: center;
 }
 
 .image {
-	border-radius: 35%;
+	border-radius: 20%;
 	width: 10rem;
 	height: 10rem;
 	box-shadow: 10px 10px 24px 9px rgba(0, 0, 0, 0.75);
 	margin: 2rem;
 }
-
