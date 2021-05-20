@@ -59,6 +59,20 @@ input:focus {
 	letter-spacing: 0.5px;
 	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 	color: black;
+	margin: 0px 10px 0px 10px;
+}
+
+.background {
+	letter-spacing: 0.5px;
+	color: black !important;
+	background-color: rgb(216, 225, 231);
+	margin: 0px 10px 0px 10px;
+}
+
+.button-secondary-override:hover {
+	background-color: #b0c0ced5 !important;
+	border-color: #b0c0ced5 !important;
+	background-image: none !important;
 }
 .dropdown-submenu {
 	position: relative;
