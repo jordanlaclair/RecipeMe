@@ -12,6 +12,7 @@ export const App = () => {
 	const [recipes, setRecipes] = useState([]);
 	const [state, setState] = useState([]);
 	const [noResultsFound, setNoResultsFound] = useState(false);
+	const [filters, setFilters] = useState([]);
 
 	const APP_ID = "77d597d7";
 	const APP_KEY = "b10c402d8931dffea0b09b47cdbcc688";
@@ -21,6 +22,10 @@ export const App = () => {
 		endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
 		getRecipes();
 	}, [query]);
+
+	/* useEffect(() => {
+		console.log("queryResults", queryResults);
+	}, [queryResults]); */
 
 	const getRecipes = async () => {
 		console.log("here in recipes function");
@@ -39,9 +44,12 @@ export const App = () => {
 	return (
 		<div className="App">
 			<Header
+				filters={filters}
+				setFilters={setFilters}
 				id="top"
 				query={query}
 				setQuery={setQuery}
+				querySearch={querySearch}
 				recipes={recipes}
 				setRecipes={setRecipes}
 				setState={setState}

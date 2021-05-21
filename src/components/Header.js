@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
 import "../css/Header.css";
 
 function Header({
@@ -6,12 +8,19 @@ function Header({
 	recipes,
 	setRecipes,
 	setState,
+	querySearch,
+	filters,
+	setFilters,
 	queryResults,
 	setNoResultsFound,
 }) {
-	/* useEffect(() => {
-		console.log("update state");
-	}, [recipes]); */
+	useEffect(() => {
+		console.log("filters using", filters);
+		console.log(filters.length);
+		for (const key in filters) {
+			console.log(filters[key]);
+		}
+	}, [filters]);
 
 	const diet = {
 		balanced: "Balanced",
@@ -72,7 +81,6 @@ function Header({
 	};
 
 	const [search, setSearch] = useState("");
-	const [filters, setFilters] = useState([]);
 
 	const updateSearch = (e) => {
 		setSearch(e.target.value);
@@ -92,6 +100,59 @@ function Header({
 		setNoResultsFound(false);
 		setRecipes(queryResults);
 		//console.log(recipes);
+	};
+
+	function getKeyByValue(object, value) {
+		return Object.keys(object).find((key) => object[key] === value);
+	}
+
+	let removeFilter = (currentFilter) => {
+		console.log("here");
+		//console.log("queryResults", queryResults);
+		const newFilter = filters.filter((filter) => filter != currentFilter);
+		setFilters(newFilter);
+		if (filters.length == 1) {
+			console.log("here1");
+			setNoResultsFound(false);
+			setRecipes(querySearch);
+			//console.log("hereeee");
+		} else {
+			console.log("here2");
+			let filtered;
+			filters.map((filter) => {
+				filtered = (queryResults || []).filter((recipe) => {
+					let key = getKeyByValue(recipe.recipe, filter);
+					//console.log(recipe.recipe);
+					if (key == undefined) {
+						//console.log("here");
+						key = Object.keys(recipe.recipe).find(
+							(key) => recipe.recipe[key][0] === filter
+						);
+					}
+
+					//console.log(recipe.recipe);
+					//console.log(recipe.recipe.mealType);
+					//console.log(recipe.recipe[key][0]);
+					//console.log(key);
+					if (
+						recipe.recipe[key] != undefined &&
+						recipe.recipe[key][0] != undefined
+					) {
+						return recipe.recipe[key][0] == filter;
+					}
+				});
+			});
+
+			if (filtered.length === 0) {
+				setNoResultsFound(true);
+			} else {
+				setNoResultsFound(false);
+				//move this line below outside?
+				setRecipes(filtered);
+			}
+
+			//console.log("filtered", filtered);
+		}
 	};
 
 	const sortByIncreasingCalories = () => {
@@ -114,7 +175,7 @@ function Header({
 	};
 
 	const filterMealType = (mealType) => {
-		console.log(recipes);
+		//console.log(recipes);
 
 		let filtered = (recipes || []).filter((recipe) => {
 			if (
@@ -132,11 +193,33 @@ function Header({
 			const updatedFilters = [...filters, mealType];
 			setFilters(updatedFilters);
 		}
-		console.log(filtered);
+		console.log("new filter amount", filtered);
+	};
+
+	const filterDishType = (dishType) => {
+		//console.log(recipes);
+
+		let filtered = (recipes || []).filter((recipe) => {
+			if (
+				recipe.recipe.dishType != undefined &&
+				recipe.recipe.dishType[0] != undefined
+			) {
+				return recipe.recipe.dishType[0] === dishType;
+			}
+		});
+		if (filtered.length === 0) {
+			setNoResultsFound(true);
+		}
+		setRecipes(filtered);
+		if (!filters.includes(dishType)) {
+			const updatedFilters = [...filters, dishType];
+			setFilters(updatedFilters);
+		}
+		console.log("new filter amount", filtered);
 	};
 
 	const filterCuisineType = (cuisine) => {
-		console.log(recipes);
+		//console.log(recipes);
 
 		let filtered = (recipes || []).filter((recipe) => {
 			if (
@@ -154,11 +237,12 @@ function Header({
 			const updatedFilters = [...filters, cuisine];
 			setFilters(updatedFilters);
 		}
-		console.log(filtered);
+		console.log("new filter amount", filtered);
 	};
 
 	let filterDiet = (diet) => {
-		console.log(recipes);
+		//on click for each filter, store previous filter
+		//console.log(recipes);
 
 		let filtered = (recipes || []).filter((recipe) => {
 			if (
@@ -177,7 +261,7 @@ function Header({
 			const updatedFilters = [...filters, diet];
 			setFilters(updatedFilters);
 		}
-		console.log(filtered);
+		console.log("new filter amount", filtered);
 	};
 
 	return (
@@ -310,7 +394,7 @@ function Header({
 							<ul className="dropdown-menu">
 								<li
 									onClick={() => {
-										filterMealType(dishType.alcoholCockTail);
+										filterDishType(dishType.alcoholCockTail);
 									}}
 									className="dropdown-item"
 								>
@@ -321,7 +405,7 @@ function Header({
 
 								<li
 									onClick={() => {
-										filterMealType(dishType.biscuitsAndCookies);
+										filterDishType(dishType.biscuitsAndCookies);
 									}}
 									className="dropdown-item"
 								>
@@ -331,7 +415,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.bread);
+										filterDishType(dishType.bread);
 									}}
 									className="dropdown-item"
 								>
@@ -341,7 +425,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.cereals);
+										filterDishType(dishType.cereals);
 									}}
 									className="dropdown-item"
 								>
@@ -351,7 +435,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.condimentsAndSauces);
+										filterDishType(dishType.condimentsAndSauces);
 									}}
 									className="dropdown-item"
 								>
@@ -361,7 +445,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.drinks);
+										filterDishType(dishType.drinks);
 									}}
 									className="dropdown-item"
 								>
@@ -371,7 +455,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.dessert);
+										filterDishType(dishType.dessert);
 									}}
 									className="dropdown-item"
 								>
@@ -381,7 +465,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.egg);
+										filterDishType(dishType.egg);
 									}}
 									className="dropdown-item"
 								>
@@ -391,7 +475,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.mainCourse);
+										filterDishType(dishType.mainCourse);
 									}}
 									className="dropdown-item"
 								>
@@ -401,7 +485,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.omelet);
+										filterDishType(dishType.omelet);
 									}}
 									className="dropdown-item"
 								>
@@ -411,7 +495,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.pancake);
+										filterDishType(dishType.pancake);
 									}}
 									className="dropdown-item"
 								>
@@ -421,7 +505,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.preps);
+										filterDishType(dishType.preps);
 									}}
 									className="dropdown-item"
 								>
@@ -431,7 +515,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.preserve);
+										filterDishType(dishType.preserve);
 									}}
 									className="dropdown-item"
 								>
@@ -441,7 +525,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.salad);
+										filterDishType(dishType.salad);
 									}}
 									className="dropdown-item"
 								>
@@ -451,7 +535,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.sandwiches);
+										filterDishType(dishType.sandwiches);
 									}}
 									className="dropdown-item"
 								>
@@ -461,7 +545,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.soup);
+										filterDishType(dishType.soup);
 									}}
 									className="dropdown-item"
 								>
@@ -471,7 +555,7 @@ function Header({
 								</li>
 								<li
 									onClick={() => {
-										filterMealType(dishType.starter);
+										filterDishType(dishType.starter);
 									}}
 									className="dropdown-item"
 								>
@@ -767,6 +851,9 @@ function Header({
 										style={{ pointerEvents: "auto", cursor: "pointer" }}
 										type="button"
 										class="btn"
+										onClick={() => {
+											removeFilter(filter);
+										}}
 										aria-label="Close"
 									>
 										<span aria-hidden="true">&times;</span>
@@ -780,5 +867,15 @@ function Header({
 		</div>
 	);
 }
+
+Header.propTypes = {
+	query: PropTypes.string,
+	setQuery: PropTypes.string,
+	recipes: PropTypes.array,
+	setRecipes: PropTypes.array,
+	setState: PropTypes.array,
+	queryResults: PropTypes.array,
+	setNoResultsFound: PropTypes.bool,
+};
 
 export default Header;

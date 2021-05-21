@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import "../css/Recipe.css";
+import PropTypes from "prop-types";
 
 const Recipe = (props) => {
 	function minutesConvert(n) {
@@ -45,6 +46,14 @@ const Recipe = (props) => {
 			<img className="image" src={props.image} alt="" />
 		</div>
 	);
+};
+
+Recipe.propTypes = {
+	title: PropTypes.string,
+	time: PropTypes.number,
+	calories: PropTypes.number,
+	text: PropTypes.array,
+	image: PropTypes.string,
 };
 
 export default Recipe;

@@ -2,6 +2,7 @@ import React from "react";
 import Recipe from "./Recipe";
 import "../css/FilteredRecipes.css";
 import { v4 as uuidv4 } from "uuid";
+import PropTypes from "prop-types";
 
 function FilteredRecipes({ recipes }) {
 	return (
@@ -19,5 +20,9 @@ function FilteredRecipes({ recipes }) {
 		</div>
 	);
 }
+
+FilteredRecipes.propTypes = {
+	recipes: PropTypes.array.isRequired,
+};
 
 export default FilteredRecipes;
