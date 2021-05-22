@@ -111,6 +111,12 @@ function Header({
 		//console.log("queryResults", queryResults);
 		const newFilter = filters.filter((filter) => filter != currentFilter);
 		setFilters(newFilter);
+		let newArr = [...filters];
+		const index = filters.indexOf(currentFilter);
+		if (index > -1) {
+			newArr.splice(index, 1);
+		}
+
 		if (filters.length == 1) {
 			console.log("here1");
 			setNoResultsFound(false);
@@ -119,7 +125,7 @@ function Header({
 		} else {
 			console.log("here2");
 			let filtered;
-			filters.map((filter) => {
+			newArr.map((filter) => {
 				filtered = (queryResults || []).filter((recipe) => {
 					let key = getKeyByValue(recipe.recipe, filter);
 					//console.log(recipe.recipe);
@@ -151,7 +157,7 @@ function Header({
 				setRecipes(filtered);
 			}
 
-			//console.log("filtered", filtered);
+			console.log("filtered", filtered);
 		}
 	};
 
@@ -161,7 +167,7 @@ function Header({
 			return a.recipe.calories - b.recipe.calories;
 		});
 		setRecipes(sorted);
-		//console.log(sorted);
+		console.log(sorted);
 	};
 
 	const sortByDecreasingCalories = () => {
@@ -171,11 +177,11 @@ function Header({
 		});
 
 		setRecipes(sorted);
-		//console.log(sorted);
+		console.log(sorted);
 	};
 
 	const filterMealType = (mealType) => {
-		//console.log(recipes);
+		console.log(recipes);
 
 		let filtered = (recipes || []).filter((recipe) => {
 			if (
@@ -349,6 +355,16 @@ function Header({
 								>
 									<div className="dropdown-item" tabindex="-1">
 										Breakfast
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterMealType(mealType.brunch);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Brunch
 									</div>
 								</li>
 
@@ -575,12 +591,12 @@ function Header({
 							<ul className="dropdown-menu">
 								<li
 									onClick={() => {
-										filterCuisineType(cuisineType.chinese);
+										filterCuisineType(cuisineType.american);
 									}}
 									className="dropdown-item"
 								>
 									<div className="dropdown-item" tabindex="-1">
-										Chinese
+										American
 									</div>
 								</li>
 								<li
@@ -593,6 +609,7 @@ function Header({
 										Asian
 									</div>
 								</li>
+
 								<li
 									onClick={() => {
 										filterCuisineType(cuisineType.british);
@@ -621,6 +638,16 @@ function Header({
 								>
 									<div className="dropdown-item" tabindex="-1">
 										Central Europe
+									</div>
+								</li>
+								<li
+									onClick={() => {
+										filterCuisineType(cuisineType.chinese);
+									}}
+									className="dropdown-item"
+								>
+									<div className="dropdown-item" tabindex="-1">
+										Chinese
 									</div>
 								</li>
 								<li
