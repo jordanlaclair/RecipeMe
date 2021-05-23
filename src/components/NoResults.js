@@ -7,7 +7,7 @@ function NoResults({ query }) {
 	return (
 		<div className="noResults__wrapper">
 			<div className="image__wrapper">
-				<img src={search} />
+				<img alt="no results" src={search} />
 			</div>
 
 			<div className="content" id="content">
