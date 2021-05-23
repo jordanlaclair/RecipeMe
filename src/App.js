@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import FilteredRecipes from "./components/FilteredRecipes";
-import Loading from "./components/Loading";
 import NoResults from "./components/NoResults";
 
 export const App = () => {
@@ -14,33 +13,14 @@ export const App = () => {
 	const [state, setState] = useState([]);
 	const [noResultsFound, setNoResultsFound] = useState(false);
 	const [filters, setFilters] = useState([]);
-	const [loading, setLoading] = useState(false);
 
 	const APP_ID = "77d597d7";
 	const APP_KEY = "b10c402d8931dffea0b09b47cdbcc688";
 	let endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
 
-	/* useEffect( () => {
-		
-		try {
-			endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
-			
-			setLoading(true);
-			await getRecipes();
-			setLoading(false);
-		} catch (error) {
-			setLoading(true);
-			console.log(error);
-		}
-	}, [query]); */
-
 	useEffect(() => {
 		getRecipes();
 	}, [query]);
-
-	/* useEffect(() => {
-		console.log("queryResults", queryResults);
-	}, [queryResults]); */
 
 	const getRecipes = async () => {
 		console.log("here in recipes function");
@@ -73,9 +53,7 @@ export const App = () => {
 				queryResults={queryResults}
 				setNoResultsFound={setNoResultsFound}
 			/>
-			{loading ? (
-				<Loading />
-			) : noResultsFound ? (
+			{noResultsFound ? (
 				<NoResults query={query} noResultsFound={noResultsFound} />
 			) : (
 				<FilteredRecipes recipes={recipes} />

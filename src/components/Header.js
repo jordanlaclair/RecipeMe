@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
+import {
+	diet,
+	mealType,
+	cuisineType,
+	dishType,
+} from "../Constants/ApiConstants";
 import "../css/Header.css";
 
 function Header({
@@ -21,64 +26,6 @@ function Header({
 			console.log(filters[key]);
 		}
 	}, [filters]);
-
-	const diet = {
-		balanced: "Balanced",
-		highFiber: "High-Fiber",
-		highProtein: "High-Protein",
-		lowCarb: "Low-Carb",
-		lowFat: "Low-Fat",
-		lowSodium: "Low-Sodium",
-	};
-
-	const mealType = {
-		breakfast: "breakfast",
-		brunch: "brunch",
-		lunchDinner: "lunch/dinner",
-		snack: "snack",
-		teatime: "teatime",
-	};
-
-	const cuisineType = {
-		american: "american",
-		asian: "asian",
-		british: "british",
-		caribbean: "caribbean",
-		centralEurope: "central europe",
-		chinese: "chinese",
-		easternEurope: "eastern europe",
-		french: "french",
-		indian: "indian",
-		italian: "italian",
-		japanese: "japanese",
-		kosher: "kosher",
-		mediterranean: "mediterranean",
-		mexican: "mexican",
-		middleEastern: "middle eastern",
-		nordic: "nordic",
-		southAmerican: "south american",
-		southEastAsian: "south east asian",
-	};
-
-	const dishType = {
-		alcoholCockTail: "alcohol-cocktail",
-		biscuitsAndCookies: "biscuits and cookies",
-		bread: "bread",
-		cereals: "cereals",
-		condimentsAndSauces: "condiments and sauces",
-		drinks: "drinks",
-		dessert: "dessert",
-		egg: "egg",
-		mainCourse: "main course",
-		omelet: "omelet",
-		pancake: "pancake",
-		preps: "preps",
-		preserve: "preserve",
-		salad: "salad",
-		sandwiches: "sandwiches",
-		soup: "soup",
-		starter: "starter",
-	};
 
 	const [search, setSearch] = useState("");
 
@@ -108,7 +55,7 @@ function Header({
 
 	let removeFilter = (currentFilter) => {
 		//console.log("queryResults", queryResults);
-		const newFilter = filters.filter((filter) => filter != currentFilter);
+		const newFilter = filters.filter((filter) => filter !== currentFilter);
 		setFilters(newFilter);
 		let newArr = [...filters];
 		const index = filters.indexOf(currentFilter);
@@ -116,16 +63,16 @@ function Header({
 			newArr.splice(index, 1);
 		}
 
-		if (filters.length == 1) {
+		if (filters.length === 1) {
 			setNoResultsFound(false);
 			setRecipes(querySearch);
 		} else {
 			let filtered;
-			newArr.map((filter) => {
+			newArr.forEach((filter) => {
 				filtered = (queryResults || []).filter((recipe) => {
 					let key = getKeyByValue(recipe.recipe, filter);
 					//console.log(recipe.recipe);
-					if (key == undefined) {
+					if (key === undefined) {
 						//console.log("here");
 						key = Object.keys(recipe.recipe).find(
 							(key) => recipe.recipe[key][0] === filter
@@ -137,10 +84,10 @@ function Header({
 					//console.log(recipe.recipe[key][0]);
 					//console.log(key);
 					if (
-						recipe.recipe[key] != undefined &&
-						recipe.recipe[key][0] != undefined
+						recipe.recipe[key] !== undefined &&
+						recipe.recipe[key][0] !== undefined
 					) {
-						return recipe.recipe[key][0] == filter;
+						return recipe.recipe[key][0] === filter;
 					}
 				});
 			});
@@ -180,7 +127,7 @@ function Header({
 		setState(["3"]);
 		let newArr = [...recipes];
 		let filtered = newArr.filter((recipe) => {
-			return recipe.recipe.totalTime != 0;
+			return recipe.recipe.totalTime !== 0;
 		});
 		let sorted = filtered.sort(function (a, b) {
 			return a.recipe.totalTime - b.recipe.totalTime;
@@ -193,7 +140,7 @@ function Header({
 		setState(["4"]);
 		let newArr = [...recipes];
 		let filtered = newArr.filter((recipe) => {
-			return recipe.recipe.totalTime != 0;
+			return recipe.recipe.totalTime !== 0;
 		});
 		let sorted = filtered.sort(function (a, b) {
 			return b.recipe.totalTime - a.recipe.totalTime;
@@ -205,14 +152,15 @@ function Header({
 	const filterMealType = (mealType) => {
 		console.log(recipes);
 
-		let filtered = (recipes || []).filter((recipe) => {
-			if (
-				recipe.recipe.mealType != undefined &&
-				recipe.recipe.mealType[0] != undefined
-			) {
-				return recipe.recipe.mealType[0] === mealType;
-			}
-		});
+		let filtered = recipes.filter(
+			(recipe) =>
+				recipe.recipe.mealType !== undefined &&
+				recipe.recipe.mealType[0] !== undefined &&
+				recipe.recipe.mealType.length !== 0 &&
+				recipe.recipe.mealType[0] === mealType
+		);
+
+		console.log("filtereddddd", filtered);
 		if (filtered.length === 0) {
 			setNoResultsFound(true);
 		}
@@ -227,14 +175,14 @@ function Header({
 	const filterDishType = (dishType) => {
 		//console.log(recipes);
 
-		let filtered = (recipes || []).filter((recipe) => {
-			if (
-				recipe.recipe.dishType != undefined &&
-				recipe.recipe.dishType[0] != undefined
-			) {
-				return recipe.recipe.dishType[0] === dishType;
-			}
-		});
+		let filtered = recipes.filter(
+			(recipe) =>
+				recipe.recipe.dishType !== undefined &&
+				recipe.recipe.dishType[0] !== undefined &&
+				recipe.recipe.dishType.length !== 0 &&
+				recipe.recipe.dishType[0] === dishType
+		);
+
 		if (filtered.length === 0) {
 			setNoResultsFound(true);
 		}
@@ -249,14 +197,14 @@ function Header({
 	const filterCuisineType = (cuisine) => {
 		//console.log(recipes);
 
-		let filtered = (recipes || []).filter((recipe) => {
-			if (
-				recipe.recipe.cuisineType != undefined &&
-				recipe.recipe.cuisineType[0] != undefined
-			) {
-				return recipe.recipe.cuisineType[0] === cuisine;
-			}
-		});
+		let filtered = recipes.filter(
+			(recipe) =>
+				recipe.recipe.cuisineType !== undefined &&
+				recipe.recipe.cuisineType[0] !== undefined &&
+				recipe.recipe.cuisineType.length !== 0 &&
+				recipe.recipe.cuisineType[0] === cuisine
+		);
+
 		if (filtered.length === 0) {
 			setNoResultsFound(true);
 		}
@@ -268,18 +216,17 @@ function Header({
 		console.log("new filter amount", filtered);
 	};
 
-	let filterDiet = (diet) => {
+	const filterDiet = (diet) => {
 		//on click for each filter, store previous filter
 		//console.log(recipes);
 
-		let filtered = (recipes || []).filter((recipe) => {
-			if (
-				recipe.recipe.dietLabels[0] != undefined &&
-				recipe.recipe.dietLabels != undefined
-			) {
-				return recipe.recipe.dietLabels[0] == diet;
-			}
-		});
+		let filtered = recipes.filter(
+			(recipe) =>
+				recipe.recipe.dietLabels !== undefined &&
+				recipe.recipe.dietLabels[0] !== undefined &&
+				recipe.recipe.dietLabels.length !== 0 &&
+				recipe.recipe.dietLabels[0] === diet
+		);
 
 		if (filtered.length === 0) {
 			setNoResultsFound(true);
