@@ -268,13 +268,13 @@ function Header({
 						resetFilters();
 					}}
 					id="resetFilter"
-					class="btn btn-secondary background button-secondary-override"
+					className="btn btn-secondary background button-secondary-override"
 				>
 					Reset Filters
 				</button>
-				<div class="dropdown">
+				<div className="dropdown">
 					<button
-						class="btn btn-secondary dropdown-toggle"
+						className="btn btn-secondary dropdown-toggle"
 						type="button"
 						id="dropdownMenu"
 						data-toggle="dropdown"
@@ -283,7 +283,8 @@ function Header({
 					>
 						Sort
 					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+
+					<div className="dropdown-menu" aria-labelledby="dropdownMenu">
 						<button onClick={sortByIncreasingCalories} class="dropdown-item">
 							Lowest Calories
 						</button>
@@ -317,15 +318,16 @@ function Header({
 						Filter
 					</button>
 					<ul
-						className="dropdown-menu multi-level"
+						className="dropdown-menu multi-level "
 						role="menu"
 						aria-labelledby="dropdownMenu"
 					>
 						<li className="dropdown-submenu">
-							<div className="dropdown-item" tabindex="-1">
+							<a className="dropdown-item dropdown-toggle test" tabindex="-1">
 								Meal Type
-							</div>
-							<ul className="dropdown-menu">
+							</a>
+
+							<ul className="dropdown-menu" id="meal-type">
 								<li
 									onClick={() => {
 										filterMealType(mealType.breakfast);
@@ -383,9 +385,9 @@ function Header({
 						<li className="dropdown-divider"></li>
 
 						<li className="dropdown-submenu">
-							<div className="dropdown-item" tabindex="-1">
+							<a className="dropdown-item dropdown-toggle test " tabindex="-1">
 								Dish Type
-							</div>
+							</a>
 							<ul className="dropdown-menu">
 								<li
 									onClick={() => {
@@ -564,9 +566,9 @@ function Header({
 						<li className="dropdown-divider"></li>
 
 						<li className="dropdown-submenu">
-							<div className="dropdown-item" tabindex="-1">
+							<a className="dropdown-item dropdown-toggle test" tabindex="-1">
 								Cuisine Type
-							</div>
+							</a>
 							<ul className="dropdown-menu">
 								<li
 									onClick={() => {
@@ -755,9 +757,9 @@ function Header({
 						<li className="dropdown-divider"></li>
 
 						<li className="dropdown-submenu">
-							<div className="dropdown-item" tabindex="-1">
+							<a className="dropdown-item dropdown-toggle test" tabindex="-1">
 								Diet
-							</div>
+							</a>
 							<ul className="dropdown-menu">
 								<li
 									onClick={() => {

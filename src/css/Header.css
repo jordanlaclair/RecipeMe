@@ -102,10 +102,12 @@ input:focus {
 	border-radius: 0 6px 6px 6px;
 }
 
-.dropdown-submenu:hover > .dropdown-menu {
+/* .dropdown-submenu:hover > .dropdown-menu {
+	display: block;
+} */
+.dropdown-menu1 {
 	display: block;
 }
-
 .dropdown-submenu > a:after {
 	display: block;
 	content: " ";
