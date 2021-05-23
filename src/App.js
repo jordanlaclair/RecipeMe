@@ -14,15 +14,17 @@ export const App = () => {
 	const [state, setState] = useState([]);
 	const [noResultsFound, setNoResultsFound] = useState(false);
 	const [filters, setFilters] = useState([]);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	const APP_ID = "77d597d7";
 	const APP_KEY = "b10c402d8931dffea0b09b47cdbcc688";
 	let endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
 
-	useEffect(async () => {
+	/* useEffect( () => {
+		
 		try {
 			endpoint = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=99`;
+			
 			setLoading(true);
 			await getRecipes();
 			setLoading(false);
@@ -30,6 +32,10 @@ export const App = () => {
 			setLoading(true);
 			console.log(error);
 		}
+	}, [query]); */
+
+	useEffect(() => {
+		getRecipes();
 	}, [query]);
 
 	/* useEffect(() => {
@@ -41,6 +47,7 @@ export const App = () => {
 
 		//console.log(query);
 		//console.log(endpoint);
+
 		const response = await fetch(endpoint);
 		const data = await response.json();
 		data.hits.length === 0 ? setNoResultsFound(true) : setNoResultsFound(false);
@@ -49,6 +56,7 @@ export const App = () => {
 		setRecipes(data.hits);
 		console.log("hits", data.hits);
 	};
+
 	//NOTE: ADD EACH FILTER THE USER ADDS TO HEADER
 	return (
 		<div className="App">

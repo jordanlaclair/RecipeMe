@@ -107,7 +107,6 @@ function Header({
 	}
 
 	let removeFilter = (currentFilter) => {
-		console.log("here");
 		//console.log("queryResults", queryResults);
 		const newFilter = filters.filter((filter) => filter != currentFilter);
 		setFilters(newFilter);
@@ -118,12 +117,9 @@ function Header({
 		}
 
 		if (filters.length == 1) {
-			console.log("here1");
 			setNoResultsFound(false);
 			setRecipes(querySearch);
-			//console.log("hereeee");
 		} else {
-			console.log("here2");
 			let filtered;
 			newArr.map((filter) => {
 				filtered = (queryResults || []).filter((recipe) => {
@@ -176,6 +172,32 @@ function Header({
 			return b.recipe.calories - a.recipe.calories;
 		});
 
+		setRecipes(sorted);
+		console.log(sorted);
+	};
+
+	const sortByIncreasingTime = () => {
+		setState(["3"]);
+		let newArr = [...recipes];
+		let filtered = newArr.filter((recipe) => {
+			return recipe.recipe.totalTime != 0;
+		});
+		let sorted = filtered.sort(function (a, b) {
+			return a.recipe.totalTime - b.recipe.totalTime;
+		});
+		setRecipes(sorted);
+		console.log(sorted);
+	};
+
+	const sortByDecreasingTime = () => {
+		setState(["4"]);
+		let newArr = [...recipes];
+		let filtered = newArr.filter((recipe) => {
+			return recipe.recipe.totalTime != 0;
+		});
+		let sorted = filtered.sort(function (a, b) {
+			return b.recipe.totalTime - a.recipe.totalTime;
+		});
 		setRecipes(sorted);
 		console.log(sorted);
 	};
@@ -322,6 +344,16 @@ function Header({
 
 						<button onClick={sortByDecreasingCalories} class="dropdown-item">
 							Highest Calories
+						</button>
+						<li className="dropdown-divider"></li>
+
+						<button onClick={sortByIncreasingTime} class="dropdown-item">
+							Shortest Time
+						</button>
+						<li className="dropdown-divider"></li>
+
+						<button onClick={sortByDecreasingTime} class="dropdown-item">
+							Longest Time
 						</button>
 					</div>
 				</div>
