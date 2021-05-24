@@ -550,16 +550,6 @@ function Header({
 										Soup
 									</div>
 								</li>
-								<li
-									onClick={() => {
-										filterDishType(dishType.starter);
-									}}
-									className="dropdown-item"
-								>
-									<div className="dropdown-item" tabindex="-1">
-										Starter
-									</div>
-								</li>
 							</ul>
 						</li>
 
@@ -719,36 +709,6 @@ function Header({
 								>
 									<div className="dropdown-item" tabindex="-1">
 										Middle Eastern
-									</div>
-								</li>
-								<li
-									onClick={() => {
-										filterCuisineType(cuisineType.nordic);
-									}}
-									className="dropdown-item"
-								>
-									<div className="dropdown-item" tabindex="-1">
-										Nordic
-									</div>
-								</li>
-								<li
-									onClick={() => {
-										filterCuisineType(cuisineType.southAmerican);
-									}}
-									className="dropdown-item"
-								>
-									<div className="dropdown-item" tabindex="-1">
-										South American
-									</div>
-								</li>
-								<li
-									onClick={() => {
-										filterCuisineType(cuisineType.southEastAsian);
-									}}
-									className="dropdown-item"
-								>
-									<div className="dropdown-item" tabindex="-1">
-										South East Asian
 									</div>
 								</li>
 							</ul>

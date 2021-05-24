@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import FilteredRecipes from "./components/FilteredRecipes";
 import NoResults from "./components/NoResults";
-
+import Results from "./components/Results";
 export const App = () => {
 	//initial search is set to chicken
 	const [queryResults, setQueryResults] = useState([]);
@@ -56,7 +56,10 @@ export const App = () => {
 			{noResultsFound ? (
 				<NoResults query={query} noResultsFound={noResultsFound} />
 			) : (
-				<FilteredRecipes recipes={recipes} />
+				<div className="results">
+					<Results recipes={recipes} query={query} />
+					<FilteredRecipes recipes={recipes} />
+				</div>
 			)}
 		</div>
 	);

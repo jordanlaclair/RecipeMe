@@ -8,7 +8,8 @@
 }
 
 .header {
-	background-image: linear-gradient(to right, #96fbc4 0%, #b0f986 100%);
+	background-color: #f4d03f;
+	background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
 	border-width: 0 0 3.7px 0px;
 	border-style: solid;
 	border-color: gray;
@@ -26,7 +27,8 @@
 	align-items: center;
 	padding: 15px;
 	color: black;
-	background-image: linear-gradient(to right, #96fbc4 0%, #f9f586 100%);
+	background-color: #f4d03f;
+	background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
 	border-width: 0 0 3.7px 0px;
 	border-style: solid;
 	border-color: gray;
@@ -65,7 +67,8 @@ input:focus {
 	min-width: 8%;
 	padding: 20px;
 	cursor: pointer;
-	background-image: linear-gradient(to right, #96fbc4 0%, #f9f586 100%);
+	background-color: #f4d03f;
+	background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
 }
 
 #dropdownMenu {

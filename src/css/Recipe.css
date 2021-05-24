@@ -6,7 +6,6 @@
 	flex-direction: column;
 	background: white;
 	align-items: center;
-	min-width: 40%;
 }
 
 .recipe__list {
