@@ -33,11 +33,11 @@ RecipeMe is a recipe search app that lets you find the ingredients of various me
   - Drinks 🍹
   - ... and more ❗
 - Cuisine Type
-  - American 🇺🇸
+  - American :unitedstates:
   - British 🇬🇧
   - Central Europe 🇪🇺
   - Chinese 🇨🇳
-  - Indian 🇮🇳
+  - Indian :india:
   - Italian 🇮🇹
   - Japanese 🇯🇵
   - Mexican 🇲🇽
