@@ -267,8 +267,8 @@ function Header({
 					onClick={() => {
 						resetFilters();
 					}}
-					id="resetFilter"
-					className="btn btn-secondary background button-secondary-override"
+					id="dropdownMenu"
+					className="btn btn-secondary button-secondary-override"
 				>
 					Reset Filters
 				</button>

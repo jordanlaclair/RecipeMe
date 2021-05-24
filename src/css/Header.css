@@ -8,11 +8,14 @@
 }
 
 .header {
-	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+	background-image: linear-gradient(to right, #96fbc4 0%, #b0f986 100%);
+	border-width: 0 0 3.7px 0px;
+	border-style: solid;
+	border-color: gray;
 	padding: 20px;
 	letter-spacing: 4px;
 	color: white;
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 	font-weight: 400;
 	text-align: center;
 	cursor: pointer;
@@ -23,7 +26,10 @@
 	align-items: center;
 	padding: 15px;
 	color: black;
-	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+	background-image: linear-gradient(to right, #96fbc4 0%, #f9f586 100%);
+	border-width: 0 0 3.7px 0px;
+	border-style: solid;
+	border-color: gray;
 }
 
 .search-form {
@@ -40,6 +46,9 @@ input:focus {
 	border: none;
 	padding: 15px;
 	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+	border-width: 0 0 3.7px 0px;
+	border-style: solid;
+	border-color: gray;
 }
 .search-bar::placeholder {
 	font-family: "Roboto", sans-serif;
@@ -48,20 +57,22 @@ input:focus {
 }
 
 .search-button {
+	border-width: 0 0 3.7px 3.7px;
+	border-style: solid;
+	border-color: gray;
 	font-size: 1rem;
 	color: white;
 	min-width: 8%;
 	padding: 20px;
 	cursor: pointer;
-	background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
-	border: none;
+	background-image: linear-gradient(to right, #96fbc4 0%, #f9f586 100%);
 }
 
 #dropdownMenu {
 	letter-spacing: 0.5px;
 	background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 	color: black;
-	margin: 0px 10px 0px 10px;
+	margin: 0 5px 0 5px;
 }
 
 .background {
@@ -102,7 +113,7 @@ input:focus {
 	border-radius: 0 6px 6px 6px;
 }
 
-/* .dropdown-submenu:hover > .dropdown-menu {
+/* dropdown-submenu:hover > .dropdown-menu {
 	display: block;
 } */
 .dropdown-menu1 {
@@ -136,4 +147,17 @@ input:focus {
 	-webkit-border-radius: 6px 0 6px 6px;
 	-moz-border-radius: 6px 0 6px 6px;
 	border-radius: 6px 0 6px 6px;
+}
+
+@media screen and (max-width: 280px) {
+	.menu {
+		padding: 15px 0px 15px 0px;
+		justify-content: space-evenly;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	#dropdownMenu {
+		margin: 0 2px 0 2px;
+	}
 }

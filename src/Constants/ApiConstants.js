@@ -43,7 +43,7 @@ export const dishType = {
 	cereals: "cereals",
 	condimentsAndSauces: "condiments and sauces",
 	drinks: "drinks",
-	dessert: "dessert",
+	dessert: "desserts",
 	egg: "egg",
 	mainCourse: "main course",
 	omelet: "omelet",
