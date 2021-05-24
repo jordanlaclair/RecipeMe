@@ -20,10 +20,10 @@ function Header({
 	setNoResultsFound,
 }) {
 	useEffect(() => {
-		console.log("filters using", filters);
-		console.log(filters.length);
+		//console.log("filters using", filters);
+		//console.log(filters.length);
 		for (const key in filters) {
-			console.log(filters[key]);
+			//console.log(filters[key]);
 		}
 	}, [filters]);
 
@@ -42,7 +42,7 @@ function Header({
 	};
 
 	const resetFilters = () => {
-		console.log("queryResults in header component", queryResults);
+		//console.log("queryResults in header component", queryResults);
 		setFilters([]);
 		setNoResultsFound(false);
 		setRecipes(queryResults);
@@ -100,7 +100,7 @@ function Header({
 				setRecipes(filtered);
 			}
 
-			console.log("filtered", filtered);
+			//console.log("filtered", filtered);
 		}
 	};
 
@@ -110,7 +110,7 @@ function Header({
 			return a.recipe.calories - b.recipe.calories;
 		});
 		setRecipes(sorted);
-		console.log(sorted);
+		//console.log(sorted);
 	};
 
 	const sortByDecreasingCalories = () => {
@@ -120,7 +120,7 @@ function Header({
 		});
 
 		setRecipes(sorted);
-		console.log(sorted);
+		//console.log(sorted);
 	};
 
 	const sortByIncreasingTime = () => {
@@ -133,7 +133,7 @@ function Header({
 			return a.recipe.totalTime - b.recipe.totalTime;
 		});
 		setRecipes(sorted);
-		console.log(sorted);
+		//console.log(sorted);
 	};
 
 	const sortByDecreasingTime = () => {
@@ -146,11 +146,11 @@ function Header({
 			return b.recipe.totalTime - a.recipe.totalTime;
 		});
 		setRecipes(sorted);
-		console.log(sorted);
+		//console.log(sorted);
 	};
 
 	const filterMealType = (mealType) => {
-		console.log(recipes);
+		//console.log(recipes);
 
 		let filtered = recipes.filter(
 			(recipe) =>
@@ -160,7 +160,7 @@ function Header({
 				recipe.recipe.mealType[0] === mealType
 		);
 
-		console.log("filtereddddd", filtered);
+		//console.log("filtereddddd", filtered);
 		if (filtered.length === 0) {
 			setNoResultsFound(true);
 		}
@@ -169,7 +169,7 @@ function Header({
 			const updatedFilters = [...filters, mealType];
 			setFilters(updatedFilters);
 		}
-		console.log("new filter amount", filtered);
+		//console.log("new filter amount", filtered);
 	};
 
 	const filterDishType = (dishType) => {
@@ -191,7 +191,7 @@ function Header({
 			const updatedFilters = [...filters, dishType];
 			setFilters(updatedFilters);
 		}
-		console.log("new filter amount", filtered);
+		//console.log("new filter amount", filtered);
 	};
 
 	const filterCuisineType = (cuisine) => {
@@ -213,7 +213,7 @@ function Header({
 			const updatedFilters = [...filters, cuisine];
 			setFilters(updatedFilters);
 		}
-		console.log("new filter amount", filtered);
+		//console.log("new filter amount", filtered);
 	};
 
 	const filterDiet = (diet) => {
@@ -236,7 +236,7 @@ function Header({
 			const updatedFilters = [...filters, diet];
 			setFilters(updatedFilters);
 		}
-		console.log("new filter amount", filtered);
+		//console.log("new filter amount", filtered);
 	};
 
 	return (

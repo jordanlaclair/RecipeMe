@@ -23,8 +23,6 @@ export const App = () => {
 	}, [query]);
 
 	const getRecipes = async () => {
-		console.log("here in recipes function");
-
 		//console.log(query);
 		//console.log(endpoint);
 
@@ -34,7 +32,7 @@ export const App = () => {
 		setQueryResults(data.hits);
 		setQuerySearch(data.hits);
 		setRecipes(data.hits);
-		console.log("hits", data.hits);
+		//console.log("hits", data.hits);
 	};
 
 	//NOTE: ADD EACH FILTER THE USER ADDS TO HEADER
